@@ -1,4 +1,3 @@
-# robots.txt for nilxnjxn.com (Main Landing Page)
 User-agent: *
 Disallow: /admin/
 Disallow: /wp-admin/
