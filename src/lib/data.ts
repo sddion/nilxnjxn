@@ -25,20 +25,24 @@ export async function getTracks(): Promise<Track[]> {
   const seasons: ("FRESH" | "AKAD" | "LATE")[] = ["FRESH", "AKAD", "LATE"];
 
   return files.map((file, i) => {
-    // Basic title formatting: remove extension and "-COVER"
     const rawTitle = file.replace(/\.[^/.]+$/, "").replace(/-COVER/i, "");
-    // Title case
     const title = rawTitle.charAt(0).toUpperCase() + rawTitle.slice(1).toLowerCase();
+    const upperFile = file.toUpperCase();
+    
+    let season: "FRESH" | "AKAD" | "LATE" = seasons[i % 3];
+    if (upperFile.includes("FRESH")) season = "FRESH";
+    else if (upperFile.includes("AKAD")) season = "AKAD";
+    else if (upperFile.includes("LATE")) season = "LATE";
 
     return {
       id: `trk_${i}`,
       title,
       artist: "NILXNJXN",
       coverUrl: `/cover-arts/${file}`,
-      audioUrl: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3", // Demo audio
+      audioUrl: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3",
       price: "₹150",
       slug: rawTitle.toLowerCase(),
-      season: seasons[i % 3],
+      season,
     };
   });
 }

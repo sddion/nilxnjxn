@@ -37,7 +37,10 @@ export function MusicClient({ tracks }: MusicClientProps) {
     if (!gridRef.current) return;
 
     const ctx = gsap.context(() => {
-      gsap.from(".track-item", {
+      const items = gsap.utils.toArray(".track-item");
+      if (items.length === 0) return;
+
+      gsap.from(items, {
         opacity: 0,
         y: 40,
         scale: 0.95,
@@ -47,11 +50,15 @@ export function MusicClient({ tracks }: MusicClientProps) {
         scrollTrigger: {
           trigger: gridRef.current,
           start: "top 85%",
+          once: true,
         },
       });
     }, gridRef);
 
-    return () => ctx.revert();
+    return () => {
+      ctx.revert();
+      ScrollTrigger.getAll().forEach(st => st.kill());
+    };
   }, [filteredTracks.length]);
 
   return (
@@ -112,34 +119,26 @@ export function MusicClient({ tracks }: MusicClientProps) {
         {/* Dynamic Grid */}
         <div 
           ref={gridRef}
-          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8 md:gap-12 justify-items-center"
+          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8 md:gap-12 justify-items-center min-h-[400px]"
         >
-          <AnimatePresence mode="popLayout">
-            {filteredTracks.length > 0 ? (
-              filteredTracks.map((track, i) => (
-                <motion.div
-                  key={track.id}
-                  layout
-                  initial={{ opacity: 0, y: 30 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, scale: 0.9 }}
-                  transition={{ duration: 0.5, delay: i * 0.05 }}
-                  className="w-full flex justify-center track-item"
-                >
-                  <TrackCard track={track} />
-                </motion.div>
-              ))
-            ) : (
-              <motion.div 
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                className="col-span-full py-24 text-center"
+          {filteredTracks.length > 0 ? (
+            filteredTracks.map((track, i) => (
+              <motion.div
+                key={track.id}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: i * 0.05 }}
+                className="w-full flex justify-center track-item"
               >
-                <h3 className="text-white/10 font-expressive text-8xl md:text-9xl select-none">Void...</h3>
-                <p className="text-accent font-functional text-[10px] uppercase tracking-[0.5em] mt-8">Frequency vanished into the shadows</p>
+                <TrackCard track={track} />
               </motion.div>
-            )}
-          </AnimatePresence>
+            ))
+          ) : (
+            <div className="col-span-full py-24 text-center">
+              <h3 className="text-white/10 font-expressive text-8xl md:text-9xl select-none">Void...</h3>
+              <p className="text-accent font-functional text-[10px] uppercase tracking-[0.5em] mt-8">Frequency vanished into the shadows</p>
+            </div>
+          )}
         </div>
       </div>
 
