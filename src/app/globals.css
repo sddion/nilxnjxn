@@ -141,4 +141,14 @@
   html {
     @apply font-sans;
   }
+
+  /* Custom Cursor Logic */
+  @media (min-width: 1024px) {
+    *, body, html {
+      cursor: none !important;
+    }
+    
+    /* Re-enable cursor for specific native elements if needed, 
+       but for this project we want total immersion */
+  }
 }

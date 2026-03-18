@@ -123,32 +123,12 @@ export function WaveformPlayer() {
         </div>
 
         {/* Waveform Visualization - Responsive Heights */}
-        <div className="flex-1 flex flex-col justify-center gap-1 md:gap-2 pt-1 md:pt-2">
-          <div className="w-full h-4 md:h-6" ref={containerRef} />
+        <div className="flex-1 flex flex-col justify-center gap-1 md:gap-2 pt-1 md:pt-2 px-4">
+          <div className="w-full h-4 md:h-6 opacity-60" ref={containerRef} />
           <div className="flex justify-between items-center px-1">
             <span className="text-[7px] md:text-[8px] font-functional text-white/30 font-bold tracking-widest uppercase">{formatTime(currentTime)}</span>
-            <div className="w-1 h-1 bg-white/20 rounded-full" />
+            <div className="flex-1 mx-4 h-px bg-white/5" />
             <span className="text-[7px] md:text-[8px] font-functional text-white/30 font-bold tracking-widest uppercase">{formatTime(duration)}</span>
-          </div>
-        </div>
-
-        {/* Volume Slider - Hidden on Mobile */}
-        <div className="hidden lg:flex items-center gap-4 px-2 shrink-0">
-          <HugeiconsIcon 
-            icon={volume === 0 ? VolumeMuteIcon : VolumeHighIcon} 
-            size={16} 
-            className="text-white/40 group-hover/player:text-white transition-colors" 
-          />
-          <div className="relative flex items-center">
-            <input 
-              type="range"
-              min="0"
-              max="1"
-              step="0.01"
-              value={volume}
-              onChange={(e) => setVolume(parseFloat(e.target.value))}
-              className="w-24 h-1 bg-white/10 rounded-full appearance-none cursor-pointer accent-accent hover:bg-white/20 transition-all"
-            />
           </div>
         </div>
       </div>

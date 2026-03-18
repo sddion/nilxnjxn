@@ -78,7 +78,7 @@ export function HeroPlayer({ track, onPlay, hasInteracted }: HeroPlayerProps) {
       <div className="absolute inset-0 z-10 bg-linear-to-b from-background via-transparent to-background/90" />
       
       {/* Centered Play Core */}
-      <div className="relative z-20 flex flex-col items-center justify-center gap-12 pt-24 md:pt-32">
+      <div className="relative z-20 flex flex-col items-center justify-center gap-12 pt-16 md:pt-20">
         <AnimatePresence mode="wait">
           {!hasInteracted ? (
             <motion.div
@@ -170,15 +170,15 @@ export function HeroPlayer({ track, onPlay, hasInteracted }: HeroPlayerProps) {
             transition={{ delay: 0.5, duration: 1 }}
             className="pt-4 px-6 w-full max-w-[320px] md:max-w-none"
           >
-             <Magnetic strength={0.2}>
-               <Button 
-                variant="outline"
-                size="lg" 
-                className="cta-reveal w-full md:w-auto rounded-full border-white/20 bg-transparent text-white hover:bg-white hover:text-black font-functional px-8 py-6 text-sm md:text-base tracking-widest uppercase transition-all shadow-[0_0_30px_rgba(255,255,255,0.1)]"
-              >
-                Get Access — {track.price}
-              </Button>
-             </Magnetic>
+              <Magnetic strength={0.2}>
+                <Button 
+                 variant="outline"
+                 size="lg" 
+                 className="cta-reveal w-full md:w-auto rounded-full border-white/20 bg-transparent text-white hover:bg-white hover:text-black font-functional px-8 py-6 text-sm md:text-base tracking-widest uppercase transition-all shadow-[0_0_30px_rgba(255,255,255,0.1)]"
+               >
+                 Get Access — <span className="text-accent ml-2">{track.price}</span>
+               </Button>
+              </Magnetic>
           </motion.div>
         )}
       </div>
@@ -190,14 +190,14 @@ export function HeroPlayer({ track, onPlay, hasInteracted }: HeroPlayerProps) {
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.8 }}
-            className="absolute bottom-10 left-6 right-6 md:left-12 flex flex-col md:flex-row items-center md:items-center gap-4 md:gap-6"
+            className="absolute bottom-12 left-6 right-6 md:left-12 flex flex-col md:flex-row items-center md:items-center gap-4 md:gap-8"
           >
             <div className="flex flex-col items-center md:items-start text-center md:text-left">
-              <span className="text-[8px] md:text-[10px] text-muted-foreground uppercase tracking-[0.3em]">Now Playing</span>
-              <span className="text-white font-functional text-xs md:text-sm">{track.title}</span>
+              <span className="text-[9px] md:text-[10px] text-accent uppercase tracking-[0.4em] font-bold">Now Playing</span>
+              <span className="text-white font-expressive text-2xl md:text-3xl tracking-wide mt-1">{track.title}</span>
             </div>
-            <div className="hidden md:block h-0.5 w-12 bg-accent/30" />
-            <span className="text-accent text-[8px] md:text-[10px] tracking-widest uppercase">Lossless Audio</span>
+            <div className="hidden md:block h-px w-16 bg-white/10" />
+            <span className="text-white/40 font-functional text-[9px] md:text-[10px] tracking-[0.3em] uppercase">Lossless Frequency</span>
           </motion.div>
         )}
       </AnimatePresence>

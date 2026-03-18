@@ -2,6 +2,9 @@
 
 import { useEffect, useRef, useState } from "react";
 import { gsap } from "gsap";
+import { MusicNote01Icon } from "@hugeicons/core-free-icons";
+import { HugeiconsIcon } from "@hugeicons/react";
+import { cn } from "@/lib/utils";
 
 export function CursorFollower() {
   const followerRef = useRef<HTMLDivElement>(null);
@@ -20,8 +23,8 @@ export function CursorFollower() {
     const xTo = gsap.quickTo(follower, "x", { duration: 0.1, ease: "none" });
     const yTo = gsap.quickTo(follower, "y", { duration: 0.1, ease: "none" });
     
-    const xRingTo = gsap.quickTo(ring, "x", { duration: 0.4, ease: "power3.out" });
-    const yRingTo = gsap.quickTo(ring, "y", { duration: 0.4, ease: "power3.out" });
+    const xRingTo = gsap.quickTo(ring, "x", { duration: 0.3, ease: "power3.out" });
+    const yRingTo = gsap.quickTo(ring, "y", { duration: 0.3, ease: "power3.out" });
 
     const handleMouseMove = (e: MouseEvent) => {
       xTo(e.clientX);
@@ -54,23 +57,25 @@ export function CursorFollower() {
   }, []);
 
   return (
-    <div className="fixed inset-0 pointer-events-none z-9999 hidden lg:block overflow-hidden">
-      {/* Center Dot */}
+    <div className="fixed inset-0 pointer-events-none z-9999 hidden lg:block overflow-hidden transition-opacity duration-500">
+      {/* Center Icon (The Note) */}
       <div 
         ref={followerRef}
-        className="absolute top-0 left-0 w-1.5 h-1.5 -ml-0.75 -mt-0.75 rounded-full bg-accent"
-      />
+        className="absolute top-0 left-0 -ml-2 -mt-2 text-accent"
+      >
+        <HugeiconsIcon icon={MusicNote01Icon} size={16} />
+      </div>
       
       {/* Outer Ring */}
       <div 
         ref={ringRef}
         className={cn(
-          "absolute top-0 left-0 -ml-6 -mt-6 rounded-full border border-accent/30 transition-all duration-300 ease-out flex items-center justify-center",
-          isHovering ? "w-12 h-12 bg-accent/10 border-accent/50" : "w-12 h-12 bg-transparent"
+          "absolute top-0 left-0 -ml-8 -mt-8 rounded-full border border-accent/20 transition-all duration-300 ease-out flex items-center justify-center",
+          isHovering ? "w-16 h-16 bg-accent/5 border-accent/40 scale-125" : "w-16 h-16 bg-transparent"
         )}
       >
         <span className={cn(
-          "text-[8px] font-bold tracking-tighter text-accent transition-opacity duration-300",
+          "text-[9px] font-bold tracking-tighter text-accent transition-opacity duration-300",
           activeText ? "opacity-100" : "opacity-0"
         )}>
           {activeText}
@@ -78,8 +83,4 @@ export function CursorFollower() {
       </div>
     </div>
   );
-}
-
-function cn(...inputs: any[]) {
-  return inputs.filter(Boolean).join(" ");
 }
