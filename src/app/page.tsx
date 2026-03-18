@@ -1,65 +1,80 @@
-import Image from "next/image";
+import { getTracks } from "@/lib/data";
+import { HeroPlayer } from "@/components/player/HeroPlayer";
+import { WaveformPlayer } from "@/components/player/WaveformPlayer";
+import { TrackCard } from "@/components/player/TrackCard";
 
-export default function Home() {
+export default async function Home() {
+  const tracks = await getTracks();
+  
+  // Use first track for Hero, others for Latest Releases
+  const featuredTrack = tracks[0];
+  const otherTracks = tracks.slice(1);
+
   return (
-    <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex min-h-screen w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
+    <main className="min-h-screen relative selection:bg-accent selection:text-black">
+      {/* Top Navbar */}
+      <nav className="fixed top-0 w-full z-40 px-6 py-4 flex justify-between items-center bg-linear-to-b from-background/90 to-transparent">
+        <div className="flex items-center gap-3">
+          <img src="/LOGO-FINAL.png" alt="NILXNJXN Logo" className="h-10 w-auto" />
+          <div className="text-xl font-mrs-sheppards text-white tracking-widest leading-none mt-1">nilxnjxn</div>
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/8 px-5 transition-colors hover:border-transparent hover:bg-black/4 dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
+        <div className="flex gap-6 text-sm font-medium text-muted-foreground mr-4">
+          <a href="/music" className="hover:text-white transition-colors">Music</a>
+          <a href="/about" className="hover:text-white transition-colors">About</a>
         </div>
-      </main>
-    </div>
+      </nav>
+
+      {/* Hero Section */}
+      {featuredTrack && <HeroPlayer track={featuredTrack} />}
+      
+      {/* Latest Releases - Horizontal Scroll */}
+      {otherTracks.length > 0 && (
+        <section className="py-24 px-6 relative z-10 bg-background/90 backdrop-blur-md">
+          <div className="max-w-7xl mx-auto space-y-8">
+            <h2 className="text-3xl font-bold tracking-tight text-white mb-8">Latest Releases</h2>
+            
+            <div className="flex gap-6 overflow-x-auto pb-8 snap-x snap-mandatory hide-scrollbar">
+              {otherTracks.map((track) => (
+                <TrackCard key={track.id} track={track} />
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* About Section preview with public image */}
+      <section className="py-32 px-6 relative z-10 bg-[#060606]">
+        <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
+          <div className="relative aspect-4/5 rounded-[24px] overflow-hidden">
+             <img src="/extra/250519DSC_0023.webp" alt="Artist Profile" className="w-full h-full object-cover" />
+          </div>
+          <div className="space-y-6">
+            <h2 className="text-4xl md:text-5xl font-bold tracking-tighter text-white">Behind the Sound</h2>
+            <p className="text-lg text-muted-foreground leading-relaxed font-light">
+              NILXNJXN creates immersive electronic soundscapes that blur the lines between 
+              ambient nostalgia and forward-thinking club rhythms. Every release is a 
+              statement—available here directly from the artist.
+            </p>
+            <a href="/about" className="inline-block mt-4 text-accent hover:text-white transition-colors border-b border-accent/30 pb-1">
+              Read full story →
+            </a>
+          </div>
+        </div>
+      </section>
+
+      {/* Global Bottom Waveform Player */}
+      <WaveformPlayer />
+
+      {/* Footer */}
+      <footer className="w-full pb-32 pt-24 flex flex-col items-center justify-center text-muted-foreground text-xs gap-4 relative z-10 border-t border-white/5 bg-background">
+        <div className="flex gap-6">
+          <a href="/terms" className="hover:text-white transition-colors">Terms of Service</a>
+          <a href="/privacy" className="hover:text-white transition-colors">Privacy Policy</a>
+          <a href="/refunds" className="hover:text-white transition-colors">Refund Policy</a>
+        </div>
+        <p>&copy; {new Date().getFullYear()} NILXNJXN. All rights reserved.</p>
+        <img src="/LOGO-FINAL.png" alt="NILXNJXN Logo" className="h-6 w-auto opacity-30 grayscale hover:grayscale-0 transition-all hover:opacity-100 mt-4" />
+      </footer>
+    </main>
   );
 }
