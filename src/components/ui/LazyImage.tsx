@@ -6,9 +6,10 @@ import { Skeleton } from './Skeleton';
 import Image from 'next/image';
 
 interface LazyImageProps {
-  src: string;
+  src: string;  
   alt: string;
   className?: string;
+  aspectRatio?: string;
   priority?: boolean;
 }
 
