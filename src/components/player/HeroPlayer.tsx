@@ -9,7 +9,6 @@ import { HugeiconsIcon } from '@hugeicons/react';
 import { Track } from '@/lib/data';
 import { useAudioStore } from '@/store/audioStore';
 import { Magnetic } from '@/components/ui/Magnetic';
-import { Button } from '@/components/ui/button';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -113,16 +112,6 @@ export function HeroPlayer({ track, onPlay, hasInteracted }: HeroPlayerProps) {
               <h1 className="font-expressive text-6xl leading-tight tracking-normal text-white mix-blend-difference drop-shadow-2xl sm:text-7xl md:text-[10rem] lg:text-[12rem]">
                 NILXNJXN
               </h1>
-              <div className="overflow-hidden">
-                <motion.p
-                  initial={{ y: 20, opacity: 0 }}
-                  animate={{ y: 0, opacity: 1 }}
-                  transition={{ duration: 0.8, delay: 0.4 }}
-                  className="font-functional text-[8px] font-medium tracking-[0.4em] text-white/40 uppercase md:text-[10px] md:tracking-[0.6em]"
-                >
-                  {track.title}
-                </motion.p>
-              </div>
             </motion.div>
           )}
         </AnimatePresence>
@@ -192,22 +181,6 @@ export function HeroPlayer({ track, onPlay, hasInteracted }: HeroPlayerProps) {
             transition={{ delay: 0.5, duration: 1 }}
             className="flex w-full flex-col items-center gap-6 px-6 pt-4 md:max-w-none"
           >
-            {/* Mobile Only Price Tag */}
-            <div className="bg-accent/10 border-accent/20 flex items-center gap-2 rounded-full border px-4 py-2 backdrop-blur-xl shadow-[0_0_20px_rgba(34,211,238,0.1)] md:hidden">
-              <span className="text-accent text-[10px] font-bold tracking-[0.2em]">
-                {track.price}
-              </span>
-            </div>
-
-            <Magnetic strength={0.2}>
-              <Button
-                variant="outline"
-                size="lg"
-                className="cta-reveal font-functional w-full rounded-full border-white/20 bg-transparent px-8 py-6 text-sm tracking-widest text-white uppercase shadow-[0_0_40px_rgba(34,211,238,0.15)] transition-all hover:bg-white hover:text-black md:w-auto md:text-base lg:px-12"
-              >
-                Get Access<span className="md:hidden"> — <span className="text-accent">{track.price}</span></span>
-              </Button>
-            </Magnetic>
           </motion.div>
         )}
       </div>
