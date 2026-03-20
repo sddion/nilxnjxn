@@ -14,37 +14,48 @@ import Link from 'next/link';
 import Image from 'next/image';
 
 const socialLinks = [
-  { name: 'Instagram', icon: InstagramIcon, href: 'https://instagram.com/nilxnjxn' },
+  {
+    name: 'Instagram',
+    icon: InstagramIcon,
+    href: 'https://instagram.com/nilxnjxn',
+    hoverColor: '#E4405F',
+  },
   {
     name: 'Spotify',
     icon: SpotifyIcon,
     href: 'https://open.spotify.com/artist/5XzmR1SLHQvl8YE5cEyhz4',
+    hoverColor: '#1DB954',
   },
   {
     name: 'YouTube',
     icon: YoutubeIcon,
     href: 'https://youtube.com/channel/UCztZDitG8Rc7kSjF1Hf1P-Q',
+    hoverColor: '#FF0000',
   },
-  { name: 'X', icon: TwitterIcon, href: 'https://x.com/Realnilxnjxn' },
+  { name: 'X', icon: TwitterIcon, href: 'https://x.com/Realnilxnjxn', hoverColor: '#FFFFFF' },
   {
     name: 'WhatsApp',
     icon: WhatsappIcon,
     href: 'https://www.whatsapp.com/channel/0029VaibEslFCCoXBTMA270I',
+    hoverColor: '#25D366',
   },
   {
     name: 'Apple Music',
     icon: AppleMusicIcon,
     href: 'https://music.apple.com/il/artist/nilxnjxn/1801565249',
+    hoverColor: '#FA243C',
   },
   {
     name: 'Shazam',
     icon: MusicNote01Icon,
     href: 'https://www.shazam.com/artist/nilxnjxn/1801565249',
+    hoverColor: '#0088FF',
   },
   {
     name: 'Amazon Music',
     icon: AmazonIcon,
     href: 'https://music.amazon.in/artists/B0F15TXBWY/nilxnjxn',
+    hoverColor: '#00A8E1',
   },
 ];
 
@@ -63,7 +74,7 @@ const legalLinks = [
 
 export function Footer() {
   return (
-    <footer className="bg-background selection:bg-accent relative mt-24 border-t border-white/5 px-6 pt-24 pb-12 selection:text-black">
+    <footer id="site-footer" className="bg-background selection:bg-accent relative mt-24 border-t border-white/5 px-6 pt-24 pb-12 selection:text-black">
       <div className="mx-auto mb-24 grid max-w-7xl grid-cols-1 gap-12 uppercase md:grid-cols-2 lg:grid-cols-4">
         {/* Brand Column */}
         <div className="space-y-6">
@@ -83,18 +94,37 @@ export function Footer() {
             Upcoming Hip-hop Artist from Assam, India. &quot;LIVE FREE, BE YOU&quot;. Catchy Hooks &
             Slick Bars — delivering a New Wave to the rap scene.
           </p>
-          <div className="flex gap-4">
-            {socialLinks.map((social) => (
-              <Magnetic key={social.name} strength={0.2}>
-                <a
-                  href={social.href}
-                  className="hover:text-accent hover:border-accent/30 text-muted-foreground flex h-10 w-10 items-center justify-center rounded-full border border-white/10 bg-white/5 transition-all hover:bg-white/10"
-                  aria-label={social.name}
-                >
-                  <HugeiconsIcon icon={social.icon} size={18} />
-                </a>
-              </Magnetic>
-            ))}
+          <div className="flex flex-col gap-4">
+            {/* Top Row: 5 Links */}
+            <div className="flex flex-wrap gap-4">
+              {socialLinks.slice(0, 5).map((social) => (
+                <Magnetic key={social.name} strength={0.2}>
+                  <a
+                    href={social.href}
+                    style={{ '--hover-color': social.hoverColor } as React.CSSProperties}
+                    className="hover:border-(--hover-color) hover:text-(--hover-color) text-muted-foreground flex h-10 w-10 items-center justify-center rounded-full border border-white/10 bg-white/5 transition-all hover:bg-white/10"
+                    aria-label={social.name}
+                  >
+                    <HugeiconsIcon icon={social.icon} size={18} />
+                  </a>
+                </Magnetic>
+              ))}
+            </div>
+            {/* Bottom Row: 3 Links (Centered) */}
+            <div className="flex flex-wrap justify-center gap-4 lg:justify-start">
+              {socialLinks.slice(5).map((social) => (
+                <Magnetic key={social.name} strength={0.3}>
+                  <a
+                    href={social.href}
+                    style={{ '--hover-color': social.hoverColor } as React.CSSProperties}
+                    className="hover:border-(--hover-color) hover:text-(--hover-color) text-muted-foreground flex h-10 w-10 items-center justify-center rounded-full border border-white/10 bg-white/5 transition-all hover:bg-white/10"
+                    aria-label={social.name}
+                  >
+                    <HugeiconsIcon icon={social.icon} size={18} />
+                  </a>
+                </Magnetic>
+              ))}
+            </div>
           </div>
         </div>
 

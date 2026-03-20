@@ -24,6 +24,24 @@ export function WaveformPlayer() {
     duration,
   } = useAudioStore();
   const [isReady, setIsReady] = useState(false);
+  const [isVisibleByFooter, setIsVisibleByFooter] = useState(true);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const entry = entries[0];
+        if (entry) {
+          setIsVisibleByFooter(!entry.isIntersecting);
+        }
+      },
+      { threshold: 0.1 },
+    );
+
+    const footer = document.getElementById('site-footer');
+    if (footer) observer.observe(footer);
+
+    return () => observer.disconnect();
+  }, []);
 
   useEffect(() => {
     if (!containerRef.current || !currentTrack) return;
@@ -91,7 +109,7 @@ export function WaveformPlayer() {
   return (
     <motion.div
       initial={{ y: 150 }}
-      animate={{ y: 0 }}
+      animate={{ y: isVisibleByFooter ? 0 : 150 }}
       exit={{ y: 150 }}
       className="pointer-events-none fixed right-0 bottom-0 left-0 z-100 px-4 pt-2 pb-6 md:pb-8"
     >

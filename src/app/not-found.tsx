@@ -33,7 +33,7 @@ export default function NotFound() {
               Void Lost.
             </h2>
             <p className="text-muted-foreground font-functional text-[10px] font-light tracking-[0.5em] uppercase">
-              Frequency Not Found
+              Shades Not Found
             </p>
           </motion.div>
         </div>

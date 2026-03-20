@@ -109,7 +109,7 @@ export function MusicClient({ tracks }: MusicClientProps) {
               </div>
               <input
                 type="text"
-                placeholder="SEARCH FREQUENCY..."
+                placeholder="SEARCH SHADES..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 className="font-functional focus:border-accent/40 h-18 w-full rounded-full border border-white/10 bg-white/5 pr-8 pl-16 text-[11px] tracking-[0.3em] text-white uppercase transition-all placeholder:text-white/10 focus:bg-white/10 focus:shadow-[0_0_40px_rgba(34,211,238,0.05)] focus:outline-none"
@@ -141,7 +141,7 @@ export function MusicClient({ tracks }: MusicClientProps) {
                 Void...
               </h3>
               <p className="text-accent font-functional mt-8 text-[10px] tracking-[0.5em] uppercase">
-                Frequency vanished into the shadows
+                Shades Not Found
               </p>
             </div>
           )}

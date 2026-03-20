@@ -22,7 +22,7 @@ export function ContactClient() {
               animate={{ opacity: 1 }}
               className="text-accent text-[8px] font-bold tracking-[0.5em] uppercase md:text-[10px]"
             >
-              Direct Frequency
+              Direct Shades
             </motion.span>
             <motion.h1
               initial={{ opacity: 0, y: 30 }}
@@ -106,7 +106,7 @@ export function ContactClient() {
                 The Inquiry
               </label>
               <textarea
-                placeholder="WHAT IS THE FREQUENCY?"
+                placeholder="WHAT IS THE SHADE?"
                 rows={4}
                 className="font-functional focus:border-accent/50 w-full resize-none rounded-[32px] border border-white/10 bg-white/5 p-8 text-sm tracking-widest text-white uppercase transition-all placeholder:text-white/20 focus:bg-white/10 focus:outline-none"
               />

@@ -92,7 +92,7 @@ export function HeroPlayer({ track, onPlay, hasInteracted }: HeroPlayerProps) {
               className="space-y-4 text-center"
             >
               <h2 className="font-functional text-[10px] font-bold tracking-[0.6em] text-white/60 uppercase">
-                Enter the frequency
+                Enter the shades
               </h2>
             </motion.div>
           ) : (
@@ -217,7 +217,7 @@ export function HeroPlayer({ track, onPlay, hasInteracted }: HeroPlayerProps) {
             </div>
             <div className="hidden h-px w-16 bg-white/10 md:block" />
             <span className="font-functional text-[9px] tracking-[0.3em] text-white/40 uppercase md:text-[10px]">
-              Lossless Frequency
+              Lossless Shades
             </span>
           </motion.div>
         )}
