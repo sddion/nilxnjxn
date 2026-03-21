@@ -1,36 +1,24 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+<div align="center">
 
-## Getting Started
+# NILXNJXN
+**ARTIST / PRODUCER / ARCHITECT**
 
-First, run the development server:
+<br />
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+_"Everything unnecessary is removed. Only what drives listening, connection, and purchase remains."_
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+<br />
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+<a href="https://open.spotify.com/artist/nilxnjxn"><img src="https://img.shields.io/badge/Spotify-1ED760?style=for-the-badge&logo=spotify&logoColor=white" alt="Spotify" /></a>
+<a href="https://music.apple.com/us/artist/nilxnjxn"><img src="https://img.shields.io/badge/Apple_Music-FA243C?style=for-the-badge&logo=apple-music&logoColor=white" alt="Apple Music" /></a>
+<a href="https://youtube.com/c/nilxnjxn"><img src="https://img.shields.io/badge/YouTube-FF0000?style=for-the-badge&logo=youtube&logoColor=white" alt="YouTube" /></a>
+<a href="https://instagram.com/nilxnjxn"><img src="https://img.shields.io/badge/Instagram-E4405F?style=for-the-badge&logo=instagram&logoColor=white" alt="Instagram" /></a>
+<a href="https://x.com/nilxnjxn"><img src="https://img.shields.io/badge/X-000000?style=for-the-badge&logo=x&logoColor=white" alt="X" /></a>
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+<br />
+<br />
 
-## Learn More
+<img src="https://github-readme-stats.vercel.app/api?username=nilxnjxn&show_icons=true&theme=radium&hide_border=true&bg_color=0D1117&title_color=ffffff&text_color=c9d1d9&icon_color=58a6ff" alt="nilxnjxn's GitHub stats" height="192px"/>
+<img src="https://github-readme-stats.vercel.app/api/top-langs/?username=nilxnjxn&layout=compact&theme=radium&hide_border=true&bg_color=0D1117&title_color=ffffff&text_color=c9d1d9" alt="Top Languages" height="192px"/>
 
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+</div>
