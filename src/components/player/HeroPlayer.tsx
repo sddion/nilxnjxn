@@ -12,6 +12,8 @@ import { Magnetic } from '@/components/ui/Magnetic';
 
 gsap.registerPlugin(ScrollTrigger);
 
+import Image from 'next/image';
+
 interface HeroPlayerProps {
   track: Track;
   onPlay?: () => void;
@@ -78,12 +80,22 @@ export function HeroPlayer({ track, onPlay, hasInteracted }: HeroPlayerProps) {
         When Wavesurfer (MediaElement backend) asks for the same URL on play, it hits the cache = Instant Play.
       */}
       <audio preload="auto" src={track.audioUrl} className="hidden" />
-      {/* Background Visuals */}
+      
+      {/* Background Visuals - Optimized for LCP */}
       <div
         ref={bgRef}
-        className="absolute inset-[-10%] z-0 bg-cover bg-center opacity-60"
-        style={{ backgroundImage: `url('/extra/250519DSC_0025.webp')`, height: '120%' }}
-      />
+        className="absolute inset-[-10%] z-0 h-[120%] w-[120%] opacity-60"
+      >
+        <Image
+          src="/extra/250519DSC_0025.webp"
+          alt="Featured Track Background"
+          fill
+          priority
+          className="object-cover object-center"
+          sizes="120vw"
+          quality={85}
+        />
+      </div>
       <div className="from-background to-background/90 absolute inset-0 z-10 bg-linear-to-b via-transparent" />
 
       {/* Centered Play Core */}

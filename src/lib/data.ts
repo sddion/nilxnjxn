@@ -13,18 +13,28 @@ export interface Track {
   season?: 'FRESH' | 'AKAD' | 'LATE';
 }
 
+// Simple in-memory cache for track data to improve TTFB
+let tracksCache: Track[] | null = null;
+
 export async function getTracks(): Promise<Track[]> {
-  const dirPath = path.join(process.cwd(), 'public', 'cover-arts');
+  if (tracksCache) return tracksCache;
+
+  const publicPath = path.join(process.cwd(), 'public');
+  const dirPath = path.join(publicPath, 'cover-arts');
+  
   let files: string[] = [];
   try {
-    files = fs.readdirSync(dirPath);
+    if (fs.existsSync(dirPath)) {
+      files = fs.readdirSync(dirPath);
+    }
   } catch (err) {
     console.error('Error reading cover-arts directory', err);
+    return [];
   }
 
   const seasons: ('FRESH' | 'AKAD' | 'LATE')[] = ['FRESH', 'AKAD', 'LATE'];
 
-  return files.map((file, i) => {
+  const tracks = files.map((file, i) => {
     const rawTitle = file.replace(/\.[^/.]+$/, '').replace(/-COVER/i, '');
     const title = rawTitle.charAt(0).toUpperCase() + rawTitle.slice(1).toLowerCase();
     const upperFile = file.toUpperCase();
@@ -34,9 +44,9 @@ export async function getTracks(): Promise<Track[]> {
     else if (upperFile.includes('AKAD')) season = 'AKAD';
     else if (upperFile.includes('LATE')) season = 'LATE';
 
-    const audioUrl = fs.existsSync(
-      path.join(process.cwd(), 'public', 'preview', `${rawTitle.toLowerCase()}.m4a`),
-    )
+    // Optimize: only check one possible extension to reduce existsSync calls
+    const audioFilePath = path.join(publicPath, 'preview', `${rawTitle.toLowerCase()}.m4a`);
+    const audioUrl = fs.existsSync(audioFilePath)
       ? `/preview/${rawTitle.toLowerCase()}.m4a`
       : 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3';
 
@@ -51,7 +61,10 @@ export async function getTracks(): Promise<Track[]> {
       season,
     };
   }).sort((a, b) => {
-      const priority = { AKAD: 0, FRESH: 1, LATE: 2 };
-      return priority[a.season || 'LATE'] - priority[b.season || 'LATE'];
-    });
+    const priority = { AKAD: 0, FRESH: 1, LATE: 2 };
+    return priority[a.season || 'LATE'] - priority[b.season || 'LATE'];
+  });
+
+  tracksCache = tracks;
+  return tracks;
 }

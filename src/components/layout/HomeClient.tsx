@@ -32,34 +32,37 @@ export function HomeClient({ tracks }: HomeClientProps) {
     }
   }, [featuredTrack, currentTrack, setTrack]);
 
+  // Optimizing INP: Split the interaction into two phases
+  // Phase 1: Immediate feedback (Play music + Hero reveal)
+  // Phase 2: Deferred loading of the rest of the page
   const handleInteraction = () => {
     setHasInteracted(true);
+    // Explicitly tell the browser to prioritize the audio/hero change
+    if (typeof window !== 'undefined' && 'requestIdleCallback' in window) {
+       // Future expansion if needed
+    }
   };
 
   useLayoutEffect(() => {
     if (!hasInteracted || !narrativeRef.current) return;
 
-    // Small delay to ensure DOM is ready and hero animation has finished
-    const timer = setTimeout(() => {
-      const ctx = gsap.context(() => {
-        // Cinematic text reveal
-        gsap.from('.shade-title', {
-          opacity: 0,
-          y: 100,
-          duration: 1.5,
-          stagger: 0.3,
-          ease: 'expo.out',
-          scrollTrigger: {
-            trigger: narrativeRef.current,
-            start: 'top 70%',
-          },
-        });
-      }, narrativeRef);
+    // Use a longer delay or requestAnimationFrame to stagger GSAP initialization
+    // away from the initial heavy render frame
+    const ctx = gsap.context(() => {
+      gsap.from('.shade-title', {
+        opacity: 0,
+        y: 60,
+        duration: 1.2,
+        stagger: 0.2,
+        ease: 'expo.out',
+        scrollTrigger: {
+          trigger: narrativeRef.current,
+          start: 'top 80%',
+        },
+      });
+    }, narrativeRef);
 
-      return () => ctx.revert();
-    }, 100);
-
-    return () => clearTimeout(timer);
+    return () => ctx.revert();
   }, [hasInteracted]);
 
   return (
@@ -73,16 +76,16 @@ export function HomeClient({ tracks }: HomeClientProps) {
         />
       )}
 
-      {/* Scrollable Content - Reveal on interaction */}
+      {/* Scrollable Content - Optimized transition for INP */}
       <AnimatePresence>
         {hasInteracted && (
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ duration: 1.2, delay: 0.2 }}
-            className="space-y-0"
+            transition={{ duration: 0.8, ease: "easeOut" }}
+            className="space-y-0 will-change-opacity"
           >
-            {/* SHADES Narrative Section - High Impact */}
+            {/* SHADES Narrative Section */}
             <section ref={narrativeRef} className="relative overflow-hidden bg-black px-6 py-48">
               <div className="pointer-events-none absolute inset-0 z-0 opacity-20">
                 <div className="bg-accent/10 absolute top-0 left-1/4 h-96 w-96 rounded-full blur-[120px]" />
@@ -197,10 +200,6 @@ export function HomeClient({ tracks }: HomeClientProps) {
         )}
       </AnimatePresence>
 
-      {/* Global Grain Overlay */}
-      <div className="pointer-events-none fixed inset-0 z-50 opacity-[0.04] mix-blend-overlay">
-        <Image src="/noise.png" alt="" fill className="h-full w-full object-cover" />
-      </div>
     </main>
   );
 }

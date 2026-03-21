@@ -23,11 +23,17 @@ export function Header() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   useEffect(() => {
+    let rafId: number;
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 20);
+      rafId = requestAnimationFrame(() => {
+        setIsScrolled(window.scrollY > 20);
+      });
     };
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      cancelAnimationFrame(rafId);
+    };
   }, []);
 
   // The mobile menu is now closed directly in the link click handlers
